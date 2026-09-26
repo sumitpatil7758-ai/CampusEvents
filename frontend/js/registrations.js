@@ -149,8 +149,17 @@ window.loadDashboard = async function() {
     window.requireAuth();
     
     const user = window.getUser();
-    if (user && document.getElementById('welcomeName')) {
-        document.getElementById('welcomeName').textContent = user.name;
+    if (user) {
+        const welcomeEl = document.getElementById('welcomeName');
+        if (welcomeEl) {
+            const hour = new Date().getHours();
+            const timeGreeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+            welcomeEl.innerHTML = `${timeGreeting}, <span class="gradient-text">${user.name}</span>! 👋`;
+        }
+        
+        document.getElementById('userCollegeId') && (document.getElementById('userCollegeId').textContent = user.college_id || 'Student ID: N/A');
+        document.getElementById('userDepartment') && (document.getElementById('userDepartment').textContent = user.department || 'General');
+        document.getElementById('userEmail') && (document.getElementById('userEmail').textContent = user.email || '');
     }
     
     try {
@@ -163,45 +172,105 @@ window.loadDashboard = async function() {
             const regs = await regRes.json();
             const registered = regs.filter(r => r.status === 'registered');
             const today = new Date().toISOString().split('T')[0];
-            const upcoming = registered.filter(r => r.event_date > today);
+            const upcoming = registered.filter(r => r.event_date >= today);
             
-            document.getElementById('statTotalRegistered') && (document.getElementById('statTotalRegistered').textContent = registered.length);
-            document.getElementById('statUpcomingEvents') && (document.getElementById('statUpcomingEvents').textContent = upcoming.length);
+            // Update stats in all variations
+            const regCount = registered.length;
+            const upcomingCount = upcoming.length;
             
-            const upcomingList = document.getElementById('upcomingEventsList');
-            if (upcomingList) {
+            ['statTotalRegistered', 'dashRegistered'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = regCount;
+            });
+            
+            ['statUpcomingEvents', 'dashUpcoming'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = upcomingCount;
+            });
+            
+            // Render upcoming events into upcomingEvents and upcomingEventsList
+            const upcomingContainers = [document.getElementById('upcomingEvents'), document.getElementById('upcomingEventsList')].filter(Boolean);
+            
+            upcomingContainers.forEach(container => {
                 if (upcoming.length > 0) {
-                    upcomingList.innerHTML = upcoming.map(r => `
-                        <div style="border-bottom: 1px solid #eee; padding: 10px 0;">
-                            <h4>${r.event_title}</h4>
-                            <small>${window.formatDate(r.event_date)} at ${r.venue}</small>
-                            <div><a href="/event-details.html?id=${r.event_id}">View Event</a></div>
-                        </div>
-                    `).join('');
+                    container.innerHTML = upcoming.map(r => {
+                        const eventDateObj = new Date(r.event_date);
+                        const monthStr = eventDateObj.toLocaleString('default', { month: 'short' });
+                        const dayStr = eventDateObj.getDate();
+                        
+                        return `
+                            <div class="dash-ticket-card tilt-card">
+                                <div class="ticket-date-box">
+                                    <span class="ticket-month">${monthStr}</span>
+                                    <span class="ticket-day">${dayStr}</span>
+                                </div>
+                                <div class="ticket-details">
+                                    <div class="ticket-badge-row">
+                                        <span class="badge badge-success"><i class="fas fa-check-circle"></i> Registered</span>
+                                        <span class="ticket-id-tag">ID: ${r.registration_id}</span>
+                                    </div>
+                                    <h4 class="ticket-title">${r.event_title}</h4>
+                                    <div class="ticket-meta">
+                                        <span><i class="fas fa-map-marker-alt"></i> ${r.venue}</span>
+                                        <span><i class="fas fa-calendar"></i> ${window.formatDate(r.event_date)}</span>
+                                    </div>
+                                </div>
+                                <div class="ticket-action">
+                                    <a href="/event-details.html?id=${r.event_id}" class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-ticket-alt"></i> View Pass
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
                 } else {
-                    upcomingList.innerHTML = '<p>No upcoming events.</p>';
+                    container.innerHTML = `
+                        <div class="empty-state-dash">
+                            <i class="fas fa-calendar-plus fa-3x" style="color: #94A3B8; margin-bottom: 12px;"></i>
+                            <h3>No Upcoming Event Passes</h3>
+                            <p>You haven't registered for any upcoming events yet. Discover hackathons and workshops across campus!</p>
+                            <a href="/events.html" class="btn btn-primary btn-sm mt-3">
+                                <i class="fas fa-compass"></i> Explore Campus Events
+                            </a>
+                        </div>
+                    `;
                 }
-            }
+            });
         }
         
         if (notifRes.ok) {
             const notifs = await notifRes.json();
             const unreadCount = notifs.filter(n => !n.is_read).length;
-            document.getElementById('statUnreadNotifs') && (document.getElementById('statUnreadNotifs').textContent = unreadCount);
             
-            const notifList = document.getElementById('recentNotifsList');
-            if (notifList) {
+            ['statUnreadNotifs', 'dashNotifications'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = unreadCount;
+            });
+            
+            const notifContainers = [document.getElementById('recentNotifications'), document.getElementById('recentNotifsList')].filter(Boolean);
+            
+            notifContainers.forEach(container => {
                 if (notifs.length > 0) {
-                    notifList.innerHTML = notifs.slice(0, 5).map(n => `
-                        <div style="border-bottom: 1px solid #eee; padding: 10px 0; ${n.is_read ? 'opacity: 0.7;' : 'font-weight: bold;'}">
-                            <div>${n.title}</div>
-                            <small>${n.message}</small>
+                    container.innerHTML = notifs.slice(0, 4).map(n => `
+                        <div class="dash-notif-item ${n.is_read ? 'read' : 'unread'}">
+                            <div class="notif-dot-status ${n.is_read ? '' : 'active'}"></div>
+                            <div class="notif-content-wrap">
+                                <div class="notif-header-line">
+                                    <strong>${n.title}</strong>
+                                </div>
+                                <p class="notif-body-line">${n.message}</p>
+                            </div>
                         </div>
                     `).join('');
                 } else {
-                    notifList.innerHTML = '<p>No recent notifications.</p>';
+                    container.innerHTML = '<p class="text-secondary" style="font-size: 0.9rem; padding: 1rem 0;">No new notifications right now.</p>';
                 }
-            }
+            });
+        }
+        
+        // Trigger 3D tilt on all new cards
+        if (window.init3DTilt) {
+            window.init3DTilt();
         }
     } catch (e) {
         console.error('Error loading dashboard data', e);

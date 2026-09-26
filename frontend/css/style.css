@@ -1172,19 +1172,558 @@ tr:hover td {
   }
 }
 
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: block;
+/* ==========================================================================
+   15. UNIQUE COMMAND CENTER DASHBOARD (Student & Faculty Portals)
+   ========================================================================== */
+.dash-welcome-banner {
+  background: var(--gradient-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-3xl);
+  padding: 2.75rem 2.5rem;
+  box-shadow: var(--glass-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.dash-welcome-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.dash-welcome-left {
+  max-width: 650px;
+}
+
+.dash-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.dash-welcome-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.dash-welcome-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.dash-user-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dash-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.dash-welcome-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Bento Metrics */
+.dash-metric-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.dash-metric-label {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.dash-metric-hint {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+/* Two-column layout */
+.dash-two-col-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.dash-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.dash-col-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Glassmorphic Ticket Card */
+.dash-passes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dash-ticket-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-2xl);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: var(--glass-shadow);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.dash-ticket-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 4px;
+  background: var(--gradient-brand);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.dash-ticket-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 16px 36px -10px rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+.ticket-date-box {
+  background: var(--gradient-brand);
+  color: white;
+  width: 68px;
+  height: 68px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+}
+
+.ticket-month {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+
+.ticket-day {
+  font-size: 1.6rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.ticket-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.ticket-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.ticket-id-tag {
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  background: rgba(241, 245, 249, 0.8);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.ticket-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.ticket-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ticket-meta i {
+  color: var(--primary);
+}
+
+.ticket-action {
+  flex-shrink: 0;
+}
+
+/* Empty State */
+.empty-state-dash {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-2xl);
+  padding: 3.5rem 2rem;
+  text-align: center;
+}
+
+.empty-state-dash h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-dash p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Digital Campus Pass Hologram Mockup */
+.digital-student-pass {
+  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #0F172A 100%);
+  color: white;
+  border-radius: var(--radius-3xl);
+  padding: 2rem;
+  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.digital-student-pass::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.pass-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.pass-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #FCD34D;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(252, 211, 77, 0.3);
+}
+
+.pass-brand {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.pass-body {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.pass-qr-mock {
+  width: 72px;
+  height: 72px;
+  background: white;
+  color: #0F172A;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+}
+
+.pass-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #38BDF8;
+  display: block;
+}
+
+.pass-status {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
+  margin: 2px 0 4px;
+}
+
+.pass-info small {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.78rem;
+}
+
+.pass-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+}
+
+.pass-btn {
+  color: #F472B6;
+  font-size: 0.88rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pass-btn:hover {
+  color: white;
+  transform: translateX(4px);
+}
+
+/* Sidebar Widgets */
+.dash-widget-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-2xl);
+  padding: 1.75rem;
+  box-shadow: var(--glass-shadow);
+  transform-style: preserve-3d;
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.widget-header h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.widget-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.dash-shortcuts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dash-shortcut-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.dash-shortcut-link:hover {
+  background: white;
+  border-color: var(--primary);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.shortcut-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+}
+
+.shortcut-icon.purple { background: rgba(79, 70, 229, 0.1); color: var(--primary); }
+.shortcut-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--secondary); }
+.shortcut-icon.pink { background: rgba(236, 72, 153, 0.1); color: var(--accent-pink); }
+
+.arrow-icon {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  transition: transform 0.2s;
+}
+
+.dash-shortcut-link:hover .arrow-icon {
+  transform: translateX(3px);
+  color: var(--primary);
+}
+
+/* Feed items */
+.dash-notif-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-light);
+  align-items: flex-start;
+}
+
+.dash-notif-item:last-child {
+  border-bottom: none;
+}
+
+.notif-dot-status {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: #CBD5E1;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.notif-dot-status.active {
+  background: var(--primary);
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.5);
+}
+
+.notif-header-line strong {
+  font-size: 0.92rem;
+  color: var(--text-primary);
+}
+
+.notif-body-line {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+@media (max-width: 992px) {
+  .dash-two-col-grid {
+    grid-template-columns: 1fr;
   }
-  .nav-links {
-    display: none;
-    position: fixed;
-    top: var(--navbar-height);
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: var(--glass-blur-heavy);
+  .dash-welcome-banner {
     flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .dash-ticket-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ticket-action {
+    width: 100%;
+  }
+  .ticket-action .btn {
+    width: 100%;
+  }
+}
+
     padding: 1.5rem;
     box-shadow: var(--shadow-lg);
     border-bottom: 1px solid var(--border);

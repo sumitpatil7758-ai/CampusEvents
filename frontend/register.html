@@ -151,10 +151,9 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Registering...';
             msgDiv.style.display = 'none';
             
-            // Determine API URL (supports port 5000, Live Server, or relative)
-            const apiBase = (window.location.origin && window.location.origin.includes(':5000')) 
-                ? '/api/auth/register' 
-                : 'http://localhost:5000/api/auth/register';
+            const apiBase = (window.location.protocol === 'file:') 
+                ? 'http://localhost:5000/api/auth/register' 
+                : '/api/auth/register';
                 
             try {
                 const response = await fetch(apiBase, {

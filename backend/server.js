@@ -47,6 +47,11 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
 
-app.listen(PORT, () => {
-  console.log(`CampusConnect server running on port ${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`CampusConnect server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
+

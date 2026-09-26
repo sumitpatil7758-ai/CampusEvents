@@ -90,9 +90,9 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
             errorDiv.style.display = 'none';
             
-            const apiBase = (window.location.origin && window.location.origin.includes(':5000')) 
-                ? '/api/auth/login' 
-                : 'http://localhost:5000/api/auth/login';
+            const apiBase = (window.location.protocol === 'file:') 
+                ? 'http://localhost:5000/api/auth/login' 
+                : '/api/auth/login';
                 
             try {
                 const response = await fetch(apiBase, {

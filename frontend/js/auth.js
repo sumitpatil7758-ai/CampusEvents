@@ -1,4 +1,4 @@
-const API_BASE = (window.location.origin && window.location.origin.includes(':5000')) ? '/api' : 'http://localhost:5000/api';
+const API_BASE = (window.location.protocol === 'file:') ? 'http://localhost:5000/api' : '/api';
 
 window.getToken = function() {
     return localStorage.getItem('token');

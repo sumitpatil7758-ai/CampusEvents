@@ -10,14 +10,33 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB & Seed initial data
+// Connect to MongoDB & Seed initial data (on local startup)
 connectDB().then(() => {
   seedData();
+}).catch((err) => {
+  console.error('Initial DB connection error:', err);
 });
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Ensure MongoDB is connected for every /api request (critical for Vercel serverless)
+app.use(async (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    try {
+      await connectDB();
+    } catch (dbErr) {
+      console.error('Database connection failed on request:', dbErr);
+      return res.status(500).json({
+        success: false,
+        message: 'Database connection failed. Please check MongoDB Atlas IP access.',
+        error: dbErr.message
+      });
+    }
+  }
+  next();
+});
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -54,4 +73,3 @@ if (!process.env.VERCEL) {
 }
 
 module.exports = app;
-

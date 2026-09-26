@@ -3,29 +3,43 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const DEFAULT_MONGODB_URI = 'mongodb+srv://sumitpatil7758_db_user:AFSLvjP6OXS6UkFV@cluster0.n4f7oqh.mongodb.net/campusconnect?retryWrites=true&w=majority&appName=Cluster0';
+
+let cached = global.mongoose;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
 const connectDB = async () => {
-  const uri = process.env.MONGODB_URI;
-  if (!uri) {
-    console.error('MONGODB_URI is not defined in environment variables');
-    return;
+  if (cached.conn && mongoose.connection.readyState === 1) {
+    return cached.conn;
   }
 
-  const connectWithRetry = async (retries = 5, delay = 3000) => {
-    try {
-      const conn = await mongoose.connect(uri, {
-        serverSelectionTimeoutMS: 10000
-      });
-      console.log(`MongoDB Connected: ${conn.connection.host}`);
-    } catch (error) {
-      console.error(`MongoDB Connection Error: ${error.message}`);
-      if (retries > 0) {
-        console.log(`Retrying MongoDB connection in ${delay / 1000}s... (${retries} attempts left)`);
-        setTimeout(() => connectWithRetry(retries - 1, delay), delay);
-      }
-    }
-  };
+  const uri = process.env.MONGODB_URI || DEFAULT_MONGODB_URI;
 
-  await connectWithRetry();
+  if (!cached.promise) {
+    const opts = {
+      serverSelectionTimeoutMS: 15000,
+      bufferCommands: true
+    };
+
+    cached.promise = mongoose.connect(uri, opts).then((mongooseInstance) => {
+      console.log('MongoDB connected successfully');
+      return mongooseInstance;
+    }).catch((err) => {
+      console.error('MongoDB connection error:', err.message);
+      cached.promise = null;
+      throw err;
+    });
+  }
+
+  try {
+    cached.conn = await cached.promise;
+    return cached.conn;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
+  }
 };
 
 module.exports = connectDB;

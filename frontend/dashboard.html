@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CampusConnect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+      <div class="nav-brand">
+        <i class="fas fa-calendar-alt"></i>
+        <span>CampusConnect</span>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="/events.html"><i class="fas fa-calendar"></i> Events</a></li>
+        <li class="auth-only student-only"><a href="/my-registrations.html"><i class="fas fa-ticket-alt"></i> My Registrations</a></li>
+        <li class="auth-only"><a href="/notifications.html"><i class="fas fa-bell"></i> Notifications <span class="notification-badge" id="notifBadge"></span></a></li>
+        <li class="auth-only student-only"><a href="/dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li class="auth-only organizer-only"><a href="/organizer-dashboard.html"><i class="fas fa-cog"></i> Organizer</a></li>
+        <li class="guest-only"><a href="/login.html" class="btn-nav"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <li class="guest-only"><a href="/register.html" class="btn-nav btn-nav-primary"><i class="fas fa-user-plus"></i> Register</a></li>
+        <li class="auth-only"><a href="#" id="logoutBtn" class="btn-nav"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </nav>
+
+    <div class="section dashboard-wrapper">
+        <div class="content-wrapper">
+            <div class="dashboard-header text-center mb-4">
+                <h1 class="page-header" id="welcomeName">Welcome back!</h1>
+            </div>
+            
+            <div class="dashboard-stats">
+                <div class="dashboard-card card">
+                    <div class="card-icon"><i class="fas fa-ticket-alt"></i></div>
+                    <h3>Registered Events</h3>
+                    <p id="dashRegistered" class="stat-number">0</p>
+                </div>
+                <div class="dashboard-card card">
+                    <div class="card-icon"><i class="fas fa-calendar-day"></i></div>
+                    <h3>Upcoming Events</h3>
+                    <p id="dashUpcoming" class="stat-number">0</p>
+                </div>
+                <div class="dashboard-card card">
+                    <div class="card-icon"><i class="fas fa-bell"></i></div>
+                    <h3>Notifications</h3>
+                    <p id="dashNotifications" class="stat-number">0</p>
+                </div>
+            </div>
+
+            <div class="dashboard-section mt-5">
+                <h2 class="section-title">Upcoming Registered Events</h2>
+                <div id="upcomingEvents" class="events-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="dashboard-section mt-5">
+                <h2 class="section-title">Recent Notifications</h2>
+                <div id="recentNotifications" class="notifications-container">
+                    <!-- Populated by JS -->
+                </div>
+                <a href="/notifications.html" class="btn btn-secondary mt-3">View All</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3><i class="fas fa-calendar-alt"></i> CampusConnect</h3>
+          <p>Your one-stop platform for discovering and managing college events. Connect, register, and experience.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="/">Home</a>
+          <a href="/events.html">Events</a>
+          <a href="/login.html">Login</a>
+          <a href="/register.html">Register</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope"></i> support@campusconnect.edu</p>
+          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+          <p><i class="fas fa-map-marker-alt"></i> SGU Campus, Maharashtra</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 CampusConnect. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/registrations.js"></script>
+    <script src="js/notifications.js"></script>
+</body>
+</html>

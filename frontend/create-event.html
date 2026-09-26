@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event - CampusConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-calendar-alt"></i>
+            <span>CampusConnect</span>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/events.html"><i class="fas fa-calendar"></i> Events</a></li>
+            <li class="auth-only student-only"><a href="/my-registrations.html"><i class="fas fa-ticket-alt"></i> My Registrations</a></li>
+            <li class="auth-only"><a href="/notifications.html"><i class="fas fa-bell"></i> Notifications <span class="notification-badge" id="notifBadge"></span></a></li>
+            <li class="auth-only student-only"><a href="/dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li class="auth-only organizer-only"><a href="/organizer-dashboard.html"><i class="fas fa-cog"></i> Organizer</a></li>
+            <li class="guest-only"><a href="/login.html" class="btn-nav"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            <li class="guest-only"><a href="/register.html" class="btn-nav btn-nav-primary"><i class="fas fa-user-plus"></i> Register</a></li>
+            <li class="auth-only"><a href="#" id="logoutBtn" class="btn-nav"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <main class="section">
+        <div class="container">
+            <div class="page-header-container" style="text-align: center; margin-bottom: 40px;">
+                <h1 class="page-header" style="margin-bottom: 8px;">Create New Event</h1>
+                <p class="text-muted">Fill in the details below to publish a new event on campus.</p>
+            </div>
+            
+            <div class="form-card" style="max-width: 800px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+                <div id="eventMessage" class="alert" style="display: none; padding: 15px; border-radius: 8px; margin-bottom: 24px;"></div>
+                
+                <form id="createEventForm" class="modern-form">
+                    <div class="form-section-title" style="font-size: 18px; font-weight: 600; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; color: #111827;">
+                        <i class="fas fa-info-circle" style="color: #4f46e5; margin-right: 8px;"></i> Basic Information
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="eventName" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Event Name</label>
+                        <input type="text" id="eventName" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 24px;">
+                        <label for="eventDescription" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Description</label>
+                        <textarea id="eventDescription" rows="4" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif; resize: vertical;"></textarea>
+                    </div>
+
+                    <div class="form-section-title" style="font-size: 18px; font-weight: 600; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; color: #111827;">
+                        <i class="fas fa-calendar-day" style="color: #4f46e5; margin-right: 8px;"></i> Schedule & Location
+                    </div>
+
+                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label for="eventCategory" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Category</label>
+                            <select id="eventCategory" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif; background-color: #fff;">
+                                <option value="">Select Category...</option>
+                                <option value="Technical">Technical</option>
+                                <option value="Cultural">Cultural</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Workshop">Workshop</option>
+                                <option value="Seminar">Seminar</option>
+                                <option value="Competition">Competition</option>
+                                <option value="Hackathon">Hackathon</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDate" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Event Date</label>
+                            <input type="date" id="eventDate" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        </div>
+                    </div>
+
+                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label for="startTime" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Start Time</label>
+                            <input type="time" id="startTime" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <div class="form-group">
+                            <label for="endTime" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">End Time</label>
+                            <input type="time" id="endTime" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        </div>
+                    </div>
+
+                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+                        <div class="form-group">
+                            <label for="venue" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Venue</label>
+                            <input type="text" id="venue" placeholder="e.g. Main Auditorium" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxParticipants" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Max Participants</label>
+                            <input type="number" id="maxParticipants" min="1" placeholder="e.g. 100" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        </div>
+                    </div>
+
+                    <div class="form-section-title" style="font-size: 18px; font-weight: 600; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; color: #111827;">
+                        <i class="fas fa-clipboard-list" style="color: #4f46e5; margin-right: 8px;"></i> Registration & Details
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="regDeadline" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Registration Deadline</label>
+                        <input type="date" id="regDeadline" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                    </div>
+
+                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label for="orgName" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Organizer Name</label>
+                            <input type="text" id="orgName" placeholder="Enter Organizer Name" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        </div>
+                        <div class="form-group">
+                            <label for="orgEmail" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Organizer Email</label>
+                            <input type="email" id="orgEmail" placeholder="Enter Organizer Email" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="contactNumber" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Contact Number</label>
+                        <input type="text" id="contactNumber" placeholder="e.g. 9876543210" required style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="eventBanner" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Event Banner URL (Optional)</label>
+                        <input type="url" id="eventBanner" placeholder="https://example.com/image.jpg" style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif;">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="eventRules" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Rules (Optional)</label>
+                        <textarea id="eventRules" rows="3" placeholder="Enter event rules" style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif; resize: vertical;"></textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 32px;">
+                        <label for="eventRequirements" style="display: block; font-weight: 500; margin-bottom: 8px; color: #374151;">Requirements (Optional)</label>
+                        <textarea id="eventRequirements" rows="3" placeholder="Enter requirements" style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif; resize: vertical;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 16px; font-weight: 600; border-radius: 8px; background: #4f46e5; color: white; border: none; cursor: pointer; transition: background 0.2s;">
+                        <i class="fas fa-check-circle" style="margin-right: 8px;"></i> Create Event
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3><i class="fas fa-calendar-alt"></i> CampusConnect</h3>
+                <p>Your one-stop platform for discovering and managing college events. Connect, register, and experience.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="/">Home</a>
+                <a href="/events.html">Events</a>
+                <a href="/login.html">Login</a>
+                <a href="/register.html">Register</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p><i class="fas fa-envelope"></i> support@campusconnect.edu</p>
+                <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                <p><i class="fas fa-map-marker-alt"></i> SGU Campus, Maharashtra</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 CampusConnect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/organizer.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Pre-fill organizer info if logged in, but keep fully editable
+            try {
+                const user = window.getUser ? window.getUser() : JSON.parse(localStorage.getItem('user'));
+                if (user) {
+                    const orgNameInput = document.getElementById('orgName');
+                    const orgEmailInput = document.getElementById('orgEmail');
+                    if (orgNameInput && !orgNameInput.value) orgNameInput.value = user.name || '';
+                    if (orgEmailInput && !orgEmailInput.value) orgEmailInput.value = user.email || '';
+                }
+            } catch (e) {
+                console.error('Error pre-filling organizer details:', e);
+            }
+
+            const form = document.getElementById('createEventForm');
+            if (form) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const msgDiv = document.getElementById('eventMessage');
+                    
+                    const formData = {
+                        title: document.getElementById('eventName').value.trim(),
+                        description: document.getElementById('eventDescription').value.trim(),
+                        category: document.getElementById('eventCategory').value,
+                        event_date: document.getElementById('eventDate').value,
+                        start_time: document.getElementById('startTime').value,
+                        end_time: document.getElementById('endTime').value,
+                        venue: document.getElementById('venue').value.trim(),
+                        max_participants: parseInt(document.getElementById('maxParticipants').value, 10),
+                        registration_deadline: document.getElementById('regDeadline').value,
+                        organizer_name: document.getElementById('orgName').value.trim(),
+                        organizer_email: document.getElementById('orgEmail').value.trim(),
+                        contact_number: document.getElementById('contactNumber').value.trim(),
+                        banner_url: document.getElementById('eventBanner').value.trim(),
+                        rules: document.getElementById('eventRules').value.trim(),
+                        requirements: document.getElementById('eventRequirements').value.trim()
+                    };
+
+                    if (formData.registration_deadline > formData.event_date) {
+                        msgDiv.className = 'alert alert-error';
+                        msgDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Registration deadline cannot be after event date!';
+                        msgDiv.style.display = 'block';
+                        msgDiv.style.backgroundColor = '#fee2e2';
+                        msgDiv.style.color = '#b91c1c';
+                        return;
+                    }
+                    if (formData.max_participants <= 0) {
+                        msgDiv.className = 'alert alert-error';
+                        msgDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Maximum participants must be greater than 0!';
+                        msgDiv.style.display = 'block';
+                        msgDiv.style.backgroundColor = '#fee2e2';
+                        msgDiv.style.color = '#b91c1c';
+                        return;
+                    }
+
+                    const originalBtnText = submitBtn.innerHTML;
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Event...';
+                    msgDiv.style.display = 'none';
+
+                    const apiBase = (window.location.origin && window.location.origin.includes(':5000')) 
+                        ? '/api/events' 
+                        : 'http://localhost:5000/api/events';
+
+                    const token = window.getToken ? window.getToken() : localStorage.getItem('token');
+
+                    try {
+                        const res = await fetch(apiBase, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        const data = await res.json();
+
+                        if (res.ok && data.success) {
+                            msgDiv.className = 'alert alert-success';
+                            msgDiv.innerHTML = '<i class="fas fa-check-circle"></i> <strong>Event Created Successfully!</strong> Redirecting...';
+                            msgDiv.style.display = 'block';
+                            msgDiv.style.backgroundColor = '#d1fae5';
+                            msgDiv.style.color = '#047857';
+                            form.reset();
+                            setTimeout(() => {
+                                window.location.href = 'events.html';
+                            }, 1800);
+                        } else {
+                            msgDiv.className = 'alert alert-error';
+                            msgDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (data.message || 'Failed to create event. Please login as organizer.');
+                            msgDiv.style.display = 'block';
+                            msgDiv.style.backgroundColor = '#fee2e2';
+                            msgDiv.style.color = '#b91c1c';
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalBtnText;
+                        }
+                    } catch (err) {
+                        console.error('Error creating event:', err);
+                        msgDiv.className = 'alert alert-error';
+                        msgDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Network error. Please check backend connection.';
+                        msgDiv.style.display = 'block';
+                        msgDiv.style.backgroundColor = '#fee2e2';
+                        msgDiv.style.color = '#b91c1c';
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnText;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

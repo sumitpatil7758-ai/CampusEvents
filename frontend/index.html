@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusConnect - College Event Management</title>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Glassmorphic Navigation -->
     <nav class="navbar">
       <div class="nav-brand">
         <i class="fas fa-calendar-alt"></i>
@@ -30,40 +35,108 @@
       </ul>
     </nav>
 
-    <header class="hero hero-gradient">
+    <!-- Hero Section with Glowing Accents & 3D Depth -->
+    <header class="hero">
         <div class="hero-content">
-            <h1>Discover. Register. Experience.</h1>
-            <p>Your one-stop platform for discovering and managing college events.</p>
+            <div class="hero-pill">
+                <i class="fas fa-sparkles"></i> The Next-Gen Campus Event Experience
+            </div>
+            <h1>Discover. Register. <span class="gradient-text">Experience.</span></h1>
+            <p>Your one-stop platform for discovering and managing hackathons, workshops, and cultural fests with instant QR passes.</p>
             <div class="hero-buttons">
-                <a href="/events.html" class="btn btn-primary">Explore Events</a>
-                <a href="/register.html" class="btn btn-secondary">Get Started</a>
+                <a href="/events.html" class="btn btn-primary">
+                    <i class="fas fa-compass"></i> Explore Events
+                </a>
+                <a href="/register.html" class="btn btn-secondary">
+                    <i class="fas fa-user-plus"></i> Join CampusConnect
+                </a>
             </div>
         </div>
     </header>
 
-    <section class="stats-section section">
+    <!-- Frosted Glass Stats Cards with Interactive 3D Tilt -->
+    <section class="stats-section">
         <div class="stat-card">
-            <i class="fas fa-calendar-check fa-2x stat-icon"></i>
+            <i class="fas fa-calendar-check stat-icon"></i>
             <h2 id="statTotalEvents">0</h2>
             <p>Total Events</p>
         </div>
         <div class="stat-card">
-            <i class="fas fa-bolt fa-2x stat-icon"></i>
+            <i class="fas fa-bolt stat-icon" style="color: #F59E0B;"></i>
             <h2 id="statActiveEvents">0</h2>
             <p>Active Events</p>
         </div>
         <div class="stat-card">
-            <i class="fas fa-users fa-2x stat-icon"></i>
+            <i class="fas fa-users stat-icon" style="color: #10B981;"></i>
             <h2 id="statRegisteredStudents">0</h2>
             <p>Registered Students</p>
         </div>
         <div class="stat-card">
-            <i class="fas fa-user-tie fa-2x stat-icon"></i>
+            <i class="fas fa-user-tie stat-icon" style="color: #EC4899;"></i>
             <h2 id="statOrganizers">0</h2>
-            <p>Organizers</p>
+            <p>Faculty Organizers</p>
         </div>
     </section>
 
+    <!-- Apple-Style Bento Grid Showcase -->
+    <section class="bento-section">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <span class="bento-tag">Designed for Campus Life</span>
+            <h2 class="section-title">Everything you need, built right in</h2>
+        </div>
+        
+        <div class="bento-grid">
+            <!-- Bento Card 1 (Span 2) -->
+            <div class="bento-card bento-col-span-2">
+                <div>
+                    <div class="bento-icon gradient-purple">
+                        <i class="fas fa-search-location"></i>
+                    </div>
+                    <span class="bento-tag">Instant Discovery</span>
+                    <h3 class="bento-title">Smart Campus Exploration</h3>
+                    <p class="bento-desc">Filter through workshops, hackathons, sports championships, and cultural fests with live seat availability counters.</p>
+                </div>
+            </div>
+
+            <!-- Bento Card 2 -->
+            <div class="bento-card">
+                <div>
+                    <div class="bento-icon gradient-pink">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <span class="bento-tag">Instant Pass</span>
+                    <h3 class="bento-title">Digital QR Entry</h3>
+                    <p class="bento-desc">Zero paper tickets. Receive an instant cryptographic QR ticket right after registering.</p>
+                </div>
+            </div>
+
+            <!-- Bento Card 3 -->
+            <div class="bento-card">
+                <div>
+                    <div class="bento-icon gradient-green">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <span class="bento-tag">Live Feed</span>
+                    <h3 class="bento-title">Real-Time Alerts</h3>
+                    <p class="bento-desc">Instant notifications for schedule changes, venue updates, and registration confirmations.</p>
+                </div>
+            </div>
+
+            <!-- Bento Card 4 (Span 2) -->
+            <div class="bento-card bento-col-span-2">
+                <div>
+                    <div class="bento-icon gradient-purple">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <span class="bento-tag">Organizer Suite</span>
+                    <h3 class="bento-title">Automated Event Management</h3>
+                    <p class="bento-desc">Effortlessly manage attendee rosters, export attendee CSVs in one click, and broadcast alerts directly to participants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Events Section -->
     <section class="section">
         <h2 class="section-title">Featured Events</h2>
         <div class="events-grid" id="featuredEvents">
@@ -71,53 +144,57 @@
         </div>
     </section>
 
-    <section class="section how-it-works">
+    <!-- How It Works Section with 3D Step Cards -->
+    <section class="section">
         <h2 class="section-title">How It Works</h2>
         <div class="how-it-works-steps">
             <div class="step-card">
                 <div class="step-number">1</div>
                 <h3>Discover</h3>
-                <p>Find exciting events happening around the campus.</p>
+                <p>Browse cutting-edge events, hackathons, and seminars across all university departments.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">2</div>
-                <h3>Register</h3>
-                <p>Sign up easily with your college ID.</p>
+                <h3>1-Click Register</h3>
+                <p>Confirm your attendance in seconds using your student college ID and credentials.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">3</div>
                 <h3>Experience</h3>
-                <p>Attend and create memorable experiences.</p>
+                <p>Flash your instant QR pass at the venue door and dive into the campus experience.</p>
             </div>
         </div>
     </section>
 
+    <!-- Glassmorphic Footer -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-brand">
           <h3><i class="fas fa-calendar-alt"></i> CampusConnect</h3>
-          <p>Your one-stop platform for discovering and managing college events. Connect, register, and experience.</p>
+          <p>The modern college event management platform. Discover upcoming hackathons, register in seconds, and experience campus life at its best.</p>
         </div>
         <div class="footer-links">
-          <h4>Quick Links</h4>
+          <h4>Navigation</h4>
           <a href="/">Home</a>
-          <a href="/events.html">Events</a>
-          <a href="/login.html">Login</a>
-          <a href="/register.html">Register</a>
+          <a href="/events.html">Events Directory</a>
+          <a href="/login.html">Sign In</a>
+          <a href="/register.html">Create Student Account</a>
         </div>
         <div class="footer-contact">
-          <h4>Contact</h4>
+          <h4>Support & Campus</h4>
           <p><i class="fas fa-envelope"></i> support@campusconnect.edu</p>
           <p><i class="fas fa-phone"></i> +91 98765 43210</p>
           <p><i class="fas fa-map-marker-alt"></i> SGU Campus, Maharashtra</p>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 CampusConnect. All rights reserved.</p>
+        <p>&copy; 2026 CampusConnect. All rights reserved. Built with modern web architecture.</p>
       </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="js/auth.js"></script>
     <script src="js/events.js"></script>
+    <script src="js/interactions.js"></script>
 </body>
 </html>

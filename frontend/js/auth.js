@@ -296,4 +296,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
     }
+
+    // Automatically initialize 3D tilt & micro-interactions on all pages
+    if (!window.init3DTilt) {
+        const tiltScript = document.createElement('script');
+        tiltScript.src = 'js/interactions.js';
+        tiltScript.async = true;
+        document.body.appendChild(tiltScript);
+    }
 });
+
